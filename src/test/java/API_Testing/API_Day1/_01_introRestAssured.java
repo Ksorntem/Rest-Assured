@@ -99,7 +99,7 @@ public class _01_introRestAssured {
                 .post("https://api.octoperf.com/public/users/login?password=test12&username=tla.jiraone@gmail.com")
                 .then()
                 .assertThat()
-                .contentType(ContentType.XML);
+                .contentType(ContentType.JSON);
         System.out.println("Test verified that content type = JSON");
     }
 }
