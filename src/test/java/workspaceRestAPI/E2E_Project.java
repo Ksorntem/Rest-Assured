@@ -12,6 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import java.util.HashMap;
 import java.util.Map;
 import static org.apache.http.HttpStatus.SC_OK;
+import static org.apache.http.HttpStatus.SC_NO_CONTENT;
 import static org.hamcrest.Matchers.is;
 
 public class E2E_Project {
@@ -108,6 +109,7 @@ public class E2E_Project {
 
         // TASK created TestNG Assertions name, id , userId, workspaceId
         Assert.assertEquals("testing22", response.jsonPath().getString("name"));
+
         // Using hamcrest Matching validation
         assertThat(response.jsonPath().getString("name"), is("testing22"));
 
@@ -124,7 +126,7 @@ public class E2E_Project {
         String requestBody1 = "{\"created\":1615443320845,\"description\"" +
                 ":\"TLAUpate\",\"id\":\"" + projectID + "\",\"lastModified\"" +
                 ":1629860121757,\"name\":\"tla\",\"tags\":[],\"type\"" +
-                ":\"DESIGN\",\"userId\":\"" + variables.get("userID") + "\",\"workspaceId\":\"" + variables.get("id") + "\"}";
+                ":\"DESIGN\",\"userId\":\"" + variables.get("userId") + "\",\"workspaceId\":\"" + variables.get("id") + "\"}";
 
         response = RestAssured.given()
                 .header("Content-Type", "application/json")
@@ -136,9 +138,17 @@ public class E2E_Project {
                 .then()
                 .extract()
                 .response();
-        System.out.println(response.prettyPeek());
+        //System.out.println(response.prettyPeek());
 
-        //TODO
+        // TODO Homework add Assertions for id, name, type, userId, workspaceId, Status code, Content Type
+        System.out.println("-------------------------");
+        assertThat(response.jsonPath().getString("workspaceId"), is("66-9wH0Bp7hMViDs0V3m"));
+        assertThat(response.jsonPath().getString("name"), is("tla"));
+        assertThat(response.jsonPath().getString("type"), is("DESIGN"));
+        assertThat(response.jsonPath().getString("userId"), is("DK-9wH0Bp7hMViDsIVRH"));
+        Assert.assertEquals(SC_OK, response.statusCode());
+        Assert.assertEquals(response.header("Content-Type"),"application/json");
+
     }
 
     @Test(dependsOnMethods = {"memberOf", "createProject", "updateProject"})
@@ -152,5 +162,6 @@ public class E2E_Project {
                 .response();
 
         // TODO validate status code 204
+        Assert.assertEquals(SC_NO_CONTENT, 204);
     }
 }

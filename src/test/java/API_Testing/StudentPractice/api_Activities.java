@@ -58,7 +58,6 @@ public class api_Activities {
                 .when()
                 .get("https://fakerestapi.azurewebsites.net/api/v1/Activities/12")
                 .then()
-                .assertThat()
                 .assertThat().header("Content-Type", "application/json; charset=utf-8; v=1.0");
     }
 }
