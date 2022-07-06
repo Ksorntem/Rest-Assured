@@ -162,6 +162,7 @@ public class E2E_Project {
                 .response();
 
         // TODO validate status code 204
-        Assert.assertEquals(SC_NO_CONTENT, 204);
+        // Assert.assertEquals(SC_NO_CONTENT, 204);
+        assertThat(response.statusCode(), is(204));
     }
 }
